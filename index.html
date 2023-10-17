@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recherche de jeu</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #7D53E7, #2A0056);
+            font-family: Arial, sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        .label {
+            font-size: 20px;
+        }
+        .input {
+            width: 70%;
+            padding: 10px;
+        }
+        .button {
+            background-color: #6921A9;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 10px;
+            cursor: pointer;
+            border-radius: 20px;
+        }
+        .button:hover {
+            background-color: #47057A;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .discord-button {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+        .gif {
+            max-width: 100%;
+            height: auto;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Recherche de jeu</h1>
+        <label class="label">Nom du jeu:</label>
+        <input class="input" type="text" id="jeuInput" onkeypress="searchOnEnter(event)">
+        <button class="button" onclick="effectuerRecherche()">Rechercher</button>
+        <p class="result" id="resultLabel"></p>
+        <button class="button" onclick="actualiser()">Actualiser</button>
+        <button class="button" onclick="quitter()">Quitter</button>
+        <a href="https://discord.gg/H35m5Ew8zW" target="_blank" class="discord-button">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpDrpDd0Xdn0-g_3iPc09FBZhxGEzKnBwSsA&usqp=CAU==" alt="Discord" width="40">
+        </a>
+        <img class="gif" src="https://res.cloudinary.com/cloudinary-marketing/images/v1649720751/Web_Assets/blog/Mario_1/Mario_1-gif?_i=AA" alt="GIF personnalisé">
+    </div>
+    <script>
+                function effectuerRecherche() {
+            var jeu = document.getElementById('jeuInput').value;
+
+            var recherche_sites = {
+                "Trailer sur Google": "https://www.google.com/search?q=" + jeu + " trailer",
+                "Steam": "https://store.steampowered.com/search/?term=" + jeu,
+                "Epic Games": "https://www.epicgames.com/store/en-US/search?q=" + jeu
+            };
+
+            // Ouvre les pages dans un nouvel onglet
+            for (var nom_site in recherche_sites) {
+                if (recherche_sites.hasOwnProperty(nom_site)) {
+                    window.open(recherche_sites[nom_site]);
+                }
+            }
+
+            document.getElementById('resultLabel').innerText = "Les résultats ont été ouverts dans de nouveaux onglets.";
+            checkNewSteamGames(jeu);
+        }
+
+        function checkNewSteamGames(jeu) {
+            // Dans une application réelle, vous interrogeriez l'API Steam pour obtenir la liste des nouveaux jeux
+            var new_games = ["Game A", "Game B", "Game C"];  // Remplacez par de vrais nouveaux jeux
+
+            if (new_games.includes(jeu)) {
+                alert("Il y a de nouveaux jeux Steam disponibles : " + new_games.join(', '));
+            }
+        }
+
+        function searchOnEnter(event) {
+            if (event.key === "Enter") {
+                effectuerRecherche();
+            }
+        }
+
+        function actualiser() {
+            location.reload(); // Actualise la page
+        }
+
+        function quitter() {
+            window.close(); // Ferme la fenêtre actuelle
+        }
+    </script>
+</body>
+</html>
